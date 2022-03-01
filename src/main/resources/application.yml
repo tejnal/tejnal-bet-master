@@ -1,0 +1,50 @@
+server:
+ port: 2022
+ servlet:
+  context-path: /bet-master
+
+#spring:
+# datasource:
+#  url: jdbc:mysql://localhost:3306/testdb?useSSL=false
+#  username: root
+#  password: 123456
+# jpa:
+#  properties:
+#   hibernate:
+#    dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+spring:
+ datasource:
+  url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=MYSQL
+  driver-class-name: org.h2.Driver
+  username: sa
+  password: password.1
+ jpa:
+  database-platform: org.hibernate.dialect.H2Dialect
+  hibernate:
+   ddl-auto: create-drop
+  properties:
+   hibernate:
+    hbm2ddl:
+     import_files: import_roles.sql,import_prize_codes.sql,import_admin_users.sql
+ sql:
+  init:
+   mode: always
+   platform: h2
+ h2:
+  console:
+   enabled: true
+   path: /h2-console
+   settings:
+    trace: false
+    web-admin-others: false
+
+# App Properties
+bet:
+ app:
+  jwtSecret: betMasterSecretKey
+  jwtExpirationMs: 3600000
+  jwtRefreshExpirationMs: 86400000
+  initial:
+   deposit:
+    amount: 5000
